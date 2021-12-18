@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Ruizhi Li" />
+
+<meta name="date" content="2021-12-19" />
+
+<title>Introduction to StatComp21064</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to StatComp21064</h1>
+<h4 class="author">Ruizhi Li</h4>
+<h4 class="date">2021-12-19</h4>
+
+
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p><strong>StatComp21064</strong> is a simple R package developed to compare the performance of R and R++ (implemented through the R package <em>Rcpp</em>) for the ‘Statistical Computing’ course. One function is considered, namely, <em>gibbs</em> (generate random nubers using Gibbs sampler). For each function, both R and Rcpp versions are produced. Namely <em>gibbsR</em> and <em>gibbsC</em> for C++.In addition, according to the requirements of the project, there are another two functions <em>gradient.descent</em> and <em>EM</em> for R.</p>
+<p>The R package ‘microbenchmark’ can be used to benchmark the above R and C++ functions.</p>
+</div>
+<div id="benchmarking-gibbsr-and-gibbsc" class="section level2">
+<h2>Benchmarking <em>gibbsR</em> and <em>gibbsC</em></h2>
+<p>The source R code for <em>gibbsR</em> is as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>gibbsR <span class="ot">&lt;-</span> <span class="cf">function</span>(N, thin, n, aa, bb) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> N, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> y <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>thin) {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      x <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>,n,y)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      y <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>,x<span class="sc">+</span>aa,n<span class="sc">-</span>x<span class="sc">+</span>bb)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    mat[i, ] <span class="ot">&lt;-</span> <span class="fu">c</span>(x, y)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  mat</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The above R code involves two loops, which could be very slow even for R-3.01 or any higher version. The corresponding C++ code is as follows.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>NumericMatrix <span class="fu">gibbsC</span>(int N, int thin, int n, int aa, int bb) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  NumericMatrix <span class="fu">mat</span>(N, <span class="dv">2</span>);</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  double x <span class="ot">=</span> <span class="dv">0</span>, y <span class="ot">=</span> <span class="dv">0</span>;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(int <span class="at">i =</span> <span class="dv">0</span>; i <span class="sc">&lt;</span> N; i<span class="sc">++</span>) {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(int <span class="at">j =</span> <span class="dv">0</span>; j <span class="sc">&lt;</span> thin; j<span class="sc">++</span>) {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      x <span class="ot">=</span> <span class="fu">rbinom</span>(<span class="dv">1</span>,n,y)[<span class="dv">0</span>];</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      y <span class="ot">=</span> <span class="fu">rbeta</span>(<span class="dv">1</span>,x<span class="sc">+</span>aa,n<span class="sc">-</span>x<span class="sc">+</span>bb)[<span class="dv">0</span>];</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mat</span>(i, <span class="dv">0</span>) <span class="ot">=</span> x;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mat</span>(i, <span class="dv">1</span>) <span class="ot">=</span> y;</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(mat);</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The R code for benchmarking <em>gibbsR</em> and <em>gibbsC</em> is as follows.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(StatComp21064)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>tm2 <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vR =</span> <span class="fu">gibbsR</span>(<span class="fl">1e2</span>, <span class="dv">10</span>, <span class="dv">22</span>, <span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">vC =</span> <span class="fu">gibbsC</span>(<span class="fl">1e2</span>, <span class="dv">10</span>, <span class="dv">22</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(tm2)[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>)])</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">expr</th>
+<th align="right">lq</th>
+<th align="right">median</th>
+<th align="right">uq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">vR</td>
+<td align="right">3624.907</td>
+<td align="right">3700.4715</td>
+<td align="right">3836.3340</td>
+</tr>
+<tr class="even">
+<td align="left">vC</td>
+<td align="right">281.848</td>
+<td align="right">286.8525</td>
+<td align="right">293.0545</td>
+</tr>
+</tbody>
+</table>
+<p>The results again show an evident computational speed gain of C++ against R.</p>
+</div>
+<div id="gradient.descent" class="section level2">
+<h2><em>gradient.descent</em></h2>
+<p>This is a function which depends on gradient descent method. The descending direction is the gradient direction.The descending step length can be fixed, or it can be solved by the backtracking method. The general idea of the backtracking method is that on the function f, use the parameter alpha to make a secant on f at the point before the drop. If the point after the drop is within the intersecting section, there is no need to adjust the stepsize, otherwise use the parameter b to adjust the stepsize.<br />
+The source R code for <em>gradient.descent</em> is as follows:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gradient.descent<span class="ot">&lt;-</span><span class="cf">function</span>(x,y,<span class="at">epsilon=</span><span class="fl">1e-14</span>,<span class="at">maxit=</span><span class="dv">1000</span>,<span class="at">stepsize=</span><span class="fl">1e-3</span>,<span class="at">alpha=</span><span class="fl">0.25</span>,<span class="at">b=</span><span class="fl">0.8</span>,<span class="at">stepmethod=</span><span class="st">&quot;backtracking&quot;</span>,<span class="at">verbose=</span><span class="cn">TRUE</span>,<span class="at">plotLoss=</span><span class="cn">TRUE</span>){</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(stepsize<span class="sc">&lt;=</span><span class="fl">1e-3</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  m<span class="ot">&lt;-</span><span class="fu">nrow</span>(x)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  x<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>,m),x)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  n<span class="ot">&lt;-</span><span class="fu">ncol</span>(x)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  beta<span class="ot">&lt;-</span><span class="fu">numeric</span>(n)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  iter<span class="ot">&lt;-</span><span class="dv">1</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  error<span class="ot">&lt;-</span><span class="dv">1</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  loss<span class="ot">&lt;-</span><span class="fu">crossprod</span>(x<span class="sc">%*%</span>beta<span class="sc">-</span>y)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span>((error<span class="sc">&gt;</span>epsilon)<span class="sc">&amp;&amp;</span>(iter<span class="sc">&lt;</span>maxit)){</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    h<span class="ot">&lt;-</span>x <span class="sc">%*%</span> beta</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    grad<span class="ot">&lt;-</span><span class="fu">crossprod</span>(x,(h<span class="sc">-</span>y))</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    beta.new<span class="ot">&lt;-</span>beta<span class="sc">-</span>stepsize<span class="sc">*</span>grad</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    loss.new<span class="ot">&lt;-</span><span class="fu">crossprod</span>(x<span class="sc">%*%</span>beta.new<span class="sc">-</span>y)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">#update for next iter</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(stepmethod<span class="sc">==</span><span class="st">&quot;backtracking&quot;</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(loss.new<span class="sc">&gt;</span>(loss[iter]<span class="sc">+</span>alpha<span class="sc">*</span>stepsize<span class="sc">*</span><span class="fu">sum</span>(grad<span class="sc">*</span>grad)))</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        stepsize<span class="ot">=</span>stepsize<span class="sc">*</span>b</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    error<span class="ot">&lt;-</span><span class="fu">max</span>(<span class="fu">abs</span>(beta.new<span class="sc">-</span>beta))</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    loss<span class="ot">&lt;-</span><span class="fu">append</span>(loss,loss.new)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    beta<span class="ot">&lt;-</span>beta.new</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    iter<span class="ot">&lt;-</span>iter<span class="sc">+</span><span class="dv">1</span> <span class="co">#thistime</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(verbose<span class="sc">&amp;&amp;</span> iter<span class="sc">%%</span><span class="dv">10</span><span class="sc">==</span><span class="dv">0</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">message</span>(<span class="fu">paste</span>(<span class="st">&#39;Iteration:&#39;</span>,iter))</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(plotLoss)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(loss, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">par=</span>beta,<span class="at">RSE=</span><span class="fu">sqrt</span>(<span class="fu">crossprod</span>(x<span class="sc">%*%</span>beta.new<span class="sc">-</span>y)<span class="sc">/</span>(<span class="fu">nrow</span>(x)<span class="sc">-</span> <span class="fu">ncol</span>(x))),<span class="at">iter=</span>iter))</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">100</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>x1<span class="ot">&lt;-</span><span class="fu">rnorm</span>(n)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>x2<span class="ot">&lt;-</span><span class="fu">rnorm</span>(n)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span><span class="dv">1</span><span class="fl">+0.5</span><span class="sc">*</span>x1<span class="sc">+</span>x2<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="at">sd=</span><span class="fl">0.1</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">cbind</span>(x1,x2)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">gradient.descent</span>(x,y)</span></code></pre></div>
+<pre><code>## Iteration: 10</code></pre>
+<pre><code>## Iteration: 20</code></pre>
+<pre><code>## Iteration: 30</code></pre>
+<pre><code>## Iteration: 40</code></pre>
+<pre><code>## Iteration: 50</code></pre>
+<pre><code>## Iteration: 60</code></pre>
+<pre><code>## Iteration: 70</code></pre>
+<pre><code>## Iteration: 80</code></pre>
+<pre><code>## Iteration: 90</code></pre>
+<pre><code>## Iteration: 100</code></pre>
+<pre><code>## Iteration: 110</code></pre>
+<pre><code>## Iteration: 120</code></pre>
+<pre><code>## Iteration: 130</code></pre>
+<pre><code>## Iteration: 140</code></pre>
+<pre><code>## Iteration: 150</code></pre>
+<pre><code>## Iteration: 160</code></pre>
+<pre><code>## Iteration: 170</code></pre>
+<pre><code>## Iteration: 180</code></pre>
+<pre><code>## Iteration: 190</code></pre>
+<pre><code>## Iteration: 200</code></pre>
+<pre><code>## Iteration: 210</code></pre>
+<pre><code>## Iteration: 220</code></pre>
+<pre><code>## Iteration: 230</code></pre>
+<pre><code>## Iteration: 240</code></pre>
+<pre><code>## Iteration: 250</code></pre>
+<pre><code>## Iteration: 260</code></pre>
+<pre><code>## Iteration: 270</code></pre>
+<pre><code>## Iteration: 280</code></pre>
+<pre><code>## Iteration: 290</code></pre>
+<pre><code>## Iteration: 300</code></pre>
+<pre><code>## Iteration: 310</code></pre>
+<pre><code>## Iteration: 320</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>## $par
+##         [,1]
+##    0.9937854
+## x1 0.4855155
+## x2 0.9998086
+## 
+## $RSE
+##           [,1]
+## [1,] 0.1037057
+## 
+## $iter
+## [1] 327</code></pre>
+</div>
+<div id="em" class="section level2">
+<h2><em>EM</em></h2>
+<p>Normal mixed model: <span class="math display">\[f(x)=\sum^C_{i=1}\pi_i\phi(x;\mu_i,\Sigma_i),\]</span> Among them, <span class="math inline">\(\phi(x;\mu_i,\Sigma_i)\)</span> is the bivariate normal distribution with the mean value of <span class="math inline">\(\mu_i\)</span> and the covariance matrix of <span class="math inline">\(\Sigma_i\)</span>, and the parameters are <span class="math inline">\((\pi_i,\mu_i,\Sigma_i ),i=1,\cdots,C\)</span>, remember <span class="math inline">\(x_j,j=1,\cdots,n\)</span> is the observed n samples, <span class="math inline">\(z_{ij}=P(x_j\sim \phi(x;\ mu_i,\Sigma_i)),i=1,\cdots,C,j=1,\cdots,n\)</span> are missing values.<br />
+In the tth iteration of the EM algorithm, given <span class="math inline">\((\pi^t_i,\mu^t_i,\Sigma^t_i),i=1,\cdots,C,\)</span><br />
+Step E is: <span class="math display">\[
+\begin{aligned}
+z^t_{kl}&amp;=E[z_{kl}|\pi^t_i,\mu^t_i,\Sigma^t_i,x_j,i=1,\cdots,C,j=1,\cdots,n]\\
+&amp;=P(x_l\sim \phi(x;\mu_k,\Sigma_k)|\pi^t_i,\mu^t_i,\Sigma^t_i,x_l,i=1,\cdots,C)\\
+&amp;=\frac{\pi^t_k\phi(x_l;\mu^t_k,\Sigma^t_k)}{\sum^C_{i=1}\pi^t_i\phi(x_l;\mu^t_i,\Sigma^t_i)}
+\end{aligned}
+\]</span> The M steps are: <span class="math display">\[
+\begin{aligned}
+\pi^{t+1}_i&amp;=\frac{\sum^n_{j=1}z^t_{ij}}{n}\\
+\mu^{t+1}_i&amp;=\frac{\sum^n_{j=1}z^t_{ij}x_j}{\sum^n_{j=1}z^t_{ij}}\\
+\Sigma^{t+1}_i&amp;=\frac{\sum^n_{j=1}z^t_{ij}(x_j-\mu^{t+1}_i)(x_j-\mu^{t+1)_i)^T}}{\sum^n_{j=1}z^t_{ij}}
+\end{aligned}
+\]</span></p>
+<p>The important point is to draw x first (if the dimension is greater than 2 dimensions, it can be drawn in two or two dimensions, but it is not suitable for too high dimensions), estimate that the data is approximately mixed by several normals, determine C, and approximately determine mu0 based on the aggregation (This is very important!!! Mu0 must not deviate too far from the final true value, otherwise an error will be reported!!!)<br />
+The source R code for <em>EM</em> is as follows:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>EM<span class="ot">&lt;-</span><span class="cf">function</span>(x,C,iter,mu0){</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(x)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ncol</span>(x)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># initialize Z, mu, Sig, pi</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  Z <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, C), <span class="fu">rep</span>(<span class="dv">0</span>, (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> C)), n, C)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  Sig <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), C), <span class="at">ncol =</span> p, <span class="at">byrow =</span> T)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  pi <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> C, C)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  mu<span class="ot">&lt;-</span>mu0</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># start EM here</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>iter) {</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>C) {</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>        Z[k,l] <span class="ot">&lt;-</span> pi[l] <span class="sc">*</span>mvtnorm<span class="sc">::</span><span class="fu">dmvnorm</span>(x[k,], mu[l,], Sig[(p <span class="sc">*</span> (l <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(p <span class="sc">*</span> l),])</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>      Z[k,] <span class="ot">&lt;-</span> Z[k,] <span class="sc">/</span> <span class="fu">sum</span>(Z[k,])</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># update Z (E-step)</span></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>    pi <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(Z)</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># update pi (M-step-1) </span></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>C) {</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>      mu[i,] <span class="ot">&lt;-</span> <span class="fu">t</span>(Z[,i]) <span class="sc">%*%</span> x <span class="sc">/</span> <span class="fu">sum</span>(Z[,i])</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>      <span class="co"># update mu (M-step-2)</span></span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>      sumsig <span class="ot">&lt;-</span> Z[<span class="dv">1</span>,i] <span class="sc">*</span> (x[<span class="dv">1</span>,] <span class="sc">-</span> mu[i,]) <span class="sc">%*%</span> <span class="fu">t</span>(x[<span class="dv">1</span>,] <span class="sc">-</span> mu[i,]) </span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) {</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>        sumsig <span class="ot">&lt;-</span> sumsig <span class="sc">+</span> Z[k,i] <span class="sc">*</span> (x[k,] <span class="sc">-</span> mu[i,]) <span class="sc">%*%</span> <span class="fu">t</span>(x[k,] <span class="sc">-</span> mu[i,])</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>      Sig[(p <span class="sc">*</span> (i <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(p <span class="sc">*</span> i),] <span class="ot">&lt;-</span> sumsig <span class="sc">/</span> <span class="fu">sum</span>(Z[,i])</span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>      <span class="co"># update Sigma (M-step-3) </span></span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">mu=</span>mu,<span class="at">Sig=</span>Sig))</span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Do it with the R-built-in data “faithful”, this mu0 is observed according to the figure:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(datasets<span class="sc">::</span>faithful)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">EM</span>(x,<span class="dv">2</span>,<span class="dv">20</span>,<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">50</span>,<span class="dv">4</span>,<span class="dv">80</span>),<span class="dv">2</span>,<span class="dv">2</span>,<span class="at">byrow=</span>T))</span></code></pre></div>
+<pre><code>## $mu
+##          [,1]     [,2]
+## [1,] 2.036388 54.47852
+## [2,] 4.289662 79.96812
+## 
+## $Sig
+##            [,1]       [,2]
+## [1,] 0.06916767  0.4351676
+## [2,] 0.43516762 33.6972821
+## [3,] 0.16996844  0.9406093
+## [4,] 0.94060932 36.0462113</code></pre>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

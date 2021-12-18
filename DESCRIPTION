@@ -1,0 +1,16 @@
+Package: StatComp21064
+Type: Package
+Title: Example functions for 'Statistical Computing' course
+Version: 1.0
+Date: 2021-12-15
+Author: Ruizhi Li
+Maintainer: Ruizhi Li <736892430@qq.com>
+Description: Several R and Rcpp function are included in this package for illustration. 
+License: GPL (>= 2)
+Imports: Rcpp (>= 1.0.7), microbenchmark, knitr, rmarkdown, mvtnorm, datasets, MASS, bootstrap, boot, parallel
+LinkingTo: Rcpp
+RoxygenNote: 7.1.2
+Encoding: UTF-8
+VignetteBuilder: knitr
+URL: https://github.com/Lrrzz/StatComp21064
+BugReports: https://github.com/Lrrzz/StatComp21064/issues
